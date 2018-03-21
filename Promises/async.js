@@ -1,9 +1,6 @@
 'use strict';
-/*
- when an exception is thrown in an async function, this will return a rejected promise
-*/
 
-var returnedAsyncFunction = async() => {
+const returnedAsyncFunction = async() => {
     return 'Hello World';
 };
 
@@ -15,7 +12,7 @@ returnedAsyncFunction()
     .then(r => console.log(r));
 //output: 'Hello World' 
 
-/*
+/*  when an exception is thrown in an async function, this will return a rejected promise
 var returnedExceptionAsyncFunction = async() => {
     throw new Error('A Rejected Promise');
 };
@@ -36,3 +33,45 @@ Error: A Rejected Promise
     at startup (bootstrap_node.js:194:16)
     at bootstrap_node.js:666:3
 */
+
+/*
+the await keyword can be applied to any function that returns a promise
+it can only be used inside an async function 
+it waits for the promise to resolve itself and returns the actual value
+it then proceeds to execute the code after the await keyword
+
+*/
+
+const asyncFunction = async() => {
+    //async function will return a resolved promise
+    return 18;
+
+    //or a rejected promise if an error is thrown
+    //throw new Error('some error');
+};
+
+//await only works inside async functions like so:
+const callAnAsyncFunction = async() => {
+    try {
+        let asyncResult = await asyncFunction();
+        //await will pull the value of the resolved promise
+        console.log('Executing after the await statement ' + asyncResult);
+    } catch(err) {
+        console.log(error);
+    }
+};
+
+callAnAsyncFunction();
+
+//sequential execution 
+const sequentialAsyncFunction = async () => {
+    await returnedAsyncFunction();
+    await asyncFunction();
+};
+
+//parallel execution
+const parallelExecution = async() => {
+    await Promise.all(returnedAsyncFunction(), asyncFunction());
+};
+
+//parallelExecution();
