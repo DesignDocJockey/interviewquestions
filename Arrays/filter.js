@@ -65,11 +65,11 @@ const players = [
   { name: 'Carson Wentz', position: 'QB' } ]
 */
 
-let searchByPosition = (positionPrefix) =>{
+const searchByPosition = (positionPrefix) =>{
     return players.filter(p => p.position.toLowerCase() === positionPrefix);
 };
 
-let searchByName = (_name) =>{
+const searchByName = (_name) =>{
     return players.filter(p => p.name.toLowerCase().includes(_name.toLowerCase()) === true);
 };
 
